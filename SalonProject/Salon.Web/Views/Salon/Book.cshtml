@@ -1,0 +1,179 @@
+﻿@model BookView
+
+@{
+    ViewData["Title"] = "Book";
+}
+
+<h2>Book</h2>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Save hours</button>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal header</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <form>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="ClientName"></label>
+                                <input asp-for="ClientName" class="form-control" id="clientName" />
+                                <span asp-validation-for="ClientName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartEvent"></label>
+                                <input asp-for="StartEvent" class="form-control" id="startEvent" />
+                                <span asp-validation-for="StartEvent" class="text-danger"></span>
+                            </div>
+
+
+
+
+                            <button id="send">Send</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<input type="hidden" id="selctedWorker" value="@Model.WorkerEmail" />
+<input type="hidden" id="currentDate" />
+
+<div class="container">
+
+
+</div>
+
+
+<div class="calendar"></div>
+
+<div class="test" id="test2">
+
+    <div id="title"></div>
+
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $('.calendar').pignoseCalendar({
+            format: 'MM-DD-YYYY',
+            select: function (date) {
+
+                selectedDay = date[0]._i;
+
+
+                selectedWorker = $("#selctedWorker").val();
+                $("#currentDate").attr("value", selectedDay);
+                var titleSchedue = $('<h6 class="cal-sub-title uppercase bold bg-highlight">Worker Schedule</h6>');
+
+
+                $.ajax({
+                    url: "GetEvents",
+                    type: "get",
+                    data: {
+                        currentDay: selectedDay,
+                        selectedWorker: selectedWorker,
+                    },
+                    success: function (data) {
+
+
+                        $("#title").append(titleSchedue);
+                        $.each(data, function (key, val) {
+                            var clientName = $('<div class="cal-footer"> </div>').text(val.clientName);
+
+                            var startEvent = $('<div class="cal-schedule"> ' + '<em>' + val.startEvent + "AM" + "<br>" + val.endEvent + "AM " + '</em>' + '</div>');
+
+                            $("#test2").append(startEvent, clientName);
+
+                        });
+
+                        alert("success")
+                    },
+                    error: function (xhr) {
+
+                        alert("error" + xhr)
+                    }
+                });
+
+            }
+        });
+    });
+</script>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+
+
+        $("#send").click(function () {
+            var appointment = {};
+            appointment.clientName = $("#clientName").val();
+            appointment.startEvent = $("#startEvent").val();
+            appointment.workerEmail = $("#selctedWorker").val();
+            appointment.dateEvent = $("#currentDate").val();
+            appointment.productId = @Model.ProductId;
+
+
+
+
+            $.ajax({
+
+                url: "Salon/AddEvent",
+                type: "POST",
+                data: JSON.stringify(appointment),
+                dataType: "json",
+                contentType: "application/json",
+
+                success: function () {
+
+                    alert("Success");
+
+                },
+                error: function () {
+
+                    alert("Error")
+                }
+            });
+
+          });
+    });
+
+</script>
+
+
+
+<script src="~/scripts/jquery.js"></script>
+<link rel="stylesheet" href="~/lib/calendar/pignose.calendar.css" />
+<link rel="stylesheet" href="~/lib/calendar/pignose.calendar.min.css" />
+<script src="~/scripts/pignose.calendar.full.min.js"></script>
+
+
+

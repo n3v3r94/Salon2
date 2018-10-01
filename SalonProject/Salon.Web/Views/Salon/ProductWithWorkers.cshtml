@@ -1,0 +1,25 @@
+﻿@model ProductWithWorkers
+
+@{
+    ViewData["Title"] = "ProductWithWorkers";
+}
+
+<h2>ProductWithWorkers</h2>
+
+
+
+
+<form method="get" asp-controller="Salon" asp-action="Book">
+
+    @foreach (var item in @Model.selectWorker)
+    {
+        <input type="radio" name="worker" value="@item.Text" /> @item.Text <br/>
+    }
+
+   <input type="submit" class="btn btn-primary"  />
+</form>
+  
+
+  
+
+

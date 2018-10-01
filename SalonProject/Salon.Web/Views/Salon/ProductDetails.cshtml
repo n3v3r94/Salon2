@@ -1,0 +1,55 @@
+﻿
+@model ProductDetails
+
+
+@{
+    ViewData["Title"] = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+
+
+ 
+<hr />
+<form asp-action="SearchByUser" method="get">
+    <div class="form-actions ">
+        <p>
+            Find user: <input type="text" name="email" />
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Search" class="btn btn-default" />
+
+
+        </p>
+    </div>
+</form>
+<hr />
+<table class="table table-bordered table-hover" >
+    <thead>
+        <tr>
+            <th>Product Name </th>
+            <th>Product Price </th>
+            <th>Product Discount </th>
+            <th>Product Workers </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <th>@Model.Name</th>
+            <th>@Model.Price</th>
+            <th>@Model.Discount</th>
+            <th>
+                <ul>
+                    @foreach (var item in Model.Workers)
+                    {
+                       
+                            <li>@item</li>
+                    }
+                </ul>
+            </th>
+        </tr>
+
+    </tbody>
+
+
+</table>

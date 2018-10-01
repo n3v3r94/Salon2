@@ -1,0 +1,15 @@
+﻿@model List<SearchByProductViewModel>
+@{
+    ViewData["Title"] = "SearchByProduct";
+}
+
+<h2>SearchByProduct</h2>
+
+
+
+@foreach (var item in Model)
+{
+    <p>@item.SalonName</p>
+    <p>@item.ProductName</p>
+
+}

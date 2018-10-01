@@ -1,0 +1,16 @@
+﻿@model UserRoleModel
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h2>@Model.UserName Roles</h2>
+
+<a asp-controller="Administrator" asp-action="SetUserRole" asp-route-id="@Model.id" class="btn btn-default" role="button"> Add Role</a>
+
+<ul>
+    @foreach (var item in Model.RoleUser)
+    {
+
+        <li>@item</li>
+    }
+</ul>

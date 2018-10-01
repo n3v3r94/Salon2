@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SalonViewModel>
+@{
+    ViewData["Title"] = "MySalon";
+}
+
+<h2>MySalon</h2>
+
+<a asp-controller="Salon" asp-action="Create" class="btn btn-primary" role="button"> Create Salon</a>
+<div class="content">
+    <div class="decoration decoration-margins"></div>
+    <div class="news-list-item">
+
+
+        @foreach (var item in @Model)
+        {
+
+
+           
+            <a asp-controller="Salon" asp-action="Details" asp-route-id="@item.Id">
+
+
+                <strong>
+                    @item.Name  
+                </strong>
+            </a>
+
+
+
+            <a asp-controller="Salon" asp-action="Details" asp-route-id="@item.Id"> @item.Name</a>
+            @*<a asp-controller="Salon" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" role="button"> Edit</a>
+            <a asp-controller="Salon" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" role="button"> Delete</a>*@
+            <div class="decoration decoration-margins"></div>
+        }
+
+    </div>
+</div>

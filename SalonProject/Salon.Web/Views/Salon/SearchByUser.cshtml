@@ -1,0 +1,92 @@
+﻿@model SearchByUser
+@{
+    ViewData["Title"] = "SearchByUser";
+}
+
+<h2>SearchByUser</h2>
+
+  
+<div class="row">
+    <div class="col-lg-offset-4">
+        <div class="bottom">
+
+            <p>
+
+                <div class="form">
+                    <label asp-for="@Model.User.Email"></label>
+                    @Model.User.Email
+                </div>
+                <div class="form">
+                    <label asp-for="@Model.User.UserName"></label>
+                    @Model.User.UserName
+                </div>
+                <div>
+                    <label asp-for="@Model.User.PhoneNumber"></label>
+                    @Model.User.PhoneNumber
+                </div>
+
+                <div class="form">
+                    <label asp-for="@Model.Roles"></label>
+                    @foreach (var item in Model.Roles)
+                    {
+
+                        @item
+                    }
+                </div>
+               
+
+            </p>
+            <form asp-action="AddWorker" method="post">
+                <div>
+                    <input type="hidden" name="role" value="Worker" />
+                </div>
+                <div>
+                    <input type="hidden" name="id" value="@Model.User.Id" />
+                </div>
+                <input type="hidden" name="productId" value="@Model.productId" />
+
+                <button types="submit" class="btn btn-primary"> Add worker</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+<br />
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Product Name </th>
+            <th>Product Price </th>
+            <th>Product Discount </th>
+            <th>Product Workers </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+           
+               
+            
+            <th>@Model.Name</th>
+            <th>@Model.Price</th>
+            <th>@Model.Discount</th>
+            <th>
+                <ul>
+                    @foreach (var item in Model.Workers)
+                    {
+
+                        <li>@item</li>
+                    }
+                </ul>
+            </th>
+        </tr>
+
+    </tbody>
+
+
+</table>

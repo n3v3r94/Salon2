@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SalonViewModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<h2>All Salon</h2>
+
+
+
+
+
+
+<div class="decoration decoration-margins"></div>
+<form asp-action="SearchByProduct" method="get">
+    <div class="container search-input-container search-input-dark search-input-light bottom-15">
+        <div class="search-boxes">
+            <div class="search">
+                <i class="fa fa-search color-white"></i><input type="text" class="bg-highlight" name="product" />
+                <input type="submit" value="Search" class="btn btn-primary" role="button" />
+            </div>
+        </div>
+        
+    </div>
+</form>
+
+
+<br />
+
+<br />
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Coutry</th>
+            <th>Salon Name</th>
+    </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <th> @item.City</th>
+                <th>@item.Country</th>
+
+                <th><a asp-controller="Salon" asp-action="Details" asp-route-id="@item.Id"> @item.Name</a></th>
+            </tr>
+        }
+    </tbody>
+
+</table>
